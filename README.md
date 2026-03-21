@@ -91,8 +91,8 @@ pokedex-manager/
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/pokedex-manager.git
-cd pokedex-manager
+git clone https://github.com/josehmelo/wsBackend-Fabrica26.1.git
+cd wsBackend-Fabrica26.1/pokedex-manager
 ```
 
 2. **Suba os containers**
@@ -130,8 +130,8 @@ docker-compose down
 
 1. **Clone o repositório**
 ```bash
-git clone https://github.com/seu-usuario/pokedex-manager.git
-cd pokedex-manager
+git clone https://github.com/josehmelo/wsBackend-Fabrica26.1.git
+cd wsBackend-Fabrica26.1/pokedex-manager
 ```
 
 2. **Crie e ative o ambiente virtual**
@@ -239,10 +239,10 @@ DB_PORT=3306
 | Campo | Tipo | Validações | Descrição |
 |---|---|---|---|
 | `id` | Integer | PK | Identificador único |
-| `nome` | CharField(150) | Obrigatório | Nome do treinador |
+| `nome` | CharField(100) | Obrigatório | Nome do treinador |
+| `idade` | Integer | Obrigatório | Idade do treinador |
 | `email` | EmailField | Único, Obrigatório | Email de cadastro |
-| `senha` | CharField | Hash bcrypt | Criptografada |
-| `bio` | TextField | Opcional | Biografia do treinador |
+| `senha` | CharField(128) | Hash PBKDF2 | Criptografada |
 | `data_cadastro` | DateTime | Auto | Timestamp de criação |
 
 ### Modelo: Party
