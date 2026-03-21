@@ -1,19 +1,90 @@
 {% extends 'base.html' %}
-{% block title %}{{ titulo }}{% endblock %}
+{% block title %}SYSTEM: {{ titulo|upper }}{% endblock %}
 
 {% block content %}
 <div class="page-header">
-  <h1>{{ titulo }}</h1>
+    <h1><span class="brand-dot"></span> {{ titulo|upper }}</h1>
+    <p class="status-online" style="font-size: 12px; letter-spacing: 1px;">AWAITING_INPUT...</p>
 </div>
 
-<div class="form-card">
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <div class="form-acoes">
-      <button type="submit" class="btn btn-success">Salvar</button>
-      <a href="/treinadores/" class="btn btn-outline">Cancelar</a>
+<div class="form-container-wrapper">
+    <div class="form-card">
+        <div class="form-header-detail">
+            <span class="light red"></span>
+            <span class="light yellow"></span>
+            <span class="terminal-text">REGISTRATION_MODULE_v5.0</span>
+        </div>
+        
+        <form method="POST" class="modern-pokedex-form">
+            {% csrf_token %}
+            
+            <div class="form-fields-grid">
+                {{ form.as_p }}
+            </div>
+
+            <div class="form-footer-decoration">
+                <div class="scan-line"></div>
+            </div>
+
+            <div class="form-acoes">
+                <button type="submit" class="btn btn-action">CONFIRM_SAVE</button>
+                <a href="/treinadores/" class="btn btn-outline">ABORT_MISSION</a>
+            </div>
+        </form>
     </div>
-  </form>
 </div>
+
+<style>
+    .form-fields-grid p {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .form-fields-grid label {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 11px;
+        color: var(--neon-blue);
+        letter-spacing: 1px;
+    }
+
+    .form-header-detail {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid var(--glass-border);
+    }
+
+    .terminal-text {
+        font-size: 10px;
+        color: var(--text-dim);
+        margin-left: auto;
+        font-family: monospace;
+    }
+
+    .form-footer-decoration {
+        height: 2px;
+        background: var(--glass-border);
+        margin: 30px 0 20px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .scan-line {
+        position: absolute;
+        width: 40px;
+        height: 100%;
+        background: var(--neon-blue);
+        box-shadow: 0 0 10px var(--neon-blue);
+        animation: scan 3s infinite linear;
+    }
+
+    @keyframes scan {
+        0% { left: -50px; }
+        100% { left: 100%; }
+    }
+</style>
 {% endblock %}

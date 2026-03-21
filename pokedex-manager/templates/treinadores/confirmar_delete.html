@@ -1,20 +1,107 @@
 {% extends 'base.html' %}
-{% block title %}Deletar Treinador{% endblock %}
+{% block title %}CRITICAL: DELETE_DATA{% endblock %}
 
 {% block content %}
 <div class="page-header">
-  <h1>Deletar Treinador</h1>
+    <h1 style="color: var(--accent-red);"><span class="light red"></span> SYSTEM_WARNING</h1>
 </div>
 
-<div class="delete-card">
-  <div class="alert alert-error">Atenção: esta ação não pode ser desfeita!</div>
-  <p>Você está prestes a deletar o treinador <strong style="color:#fff;">{{ treinador.nome }}</strong> e todos os pokémons da sua party.</p>
-  <form method="POST">
-    {% csrf_token %}
-    <div class="form-acoes">
-      <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
-      <a href="/treinadores/" class="btn btn-outline">Cancelar</a>
+<div class="delete-container-wrapper">
+    <div class="delete-card">
+        <div class="delete-header">
+            <div class="warning-hex">!</div>
+            <h2>CONFIRMAR EXCLUSÃO DE DADOS?</h2>
+        </div>
+
+        <div class="alert alert-error">
+            <strong>ERRO DE SISTEMA:</strong> AÇÃO IRREVERSÍVEL DETECTADA.
+        </div>
+
+        <div class="delete-info">
+            <p>Você está prestes a purgar os registros do treinador:</p>
+            <div class="target-name">
+                <span class="label">OBJETO:</span> {{ treinador.nome|upper }}
+            </div>
+            <p class="sub-text">Atenção: Todos os dados da PARTY vinculados a este ID serão permanentemente deletados do banco de dados da Pokédex.</p>
+        </div>
+
+        <form method="POST" class="delete-form">
+            {% csrf_token %}
+            <div class="form-footer-decoration danger-line">
+                <div class="scan-line-danger"></div>
+            </div>
+            
+            <div class="form-acoes">
+                <button type="submit" class="btn btn-danger btn-pulse">CONFIRM_TERMINATION</button>
+                <a href="/treinadores/" class="btn btn-outline">ABORT_ACTION</a>
+            </div>
+        </form>
     </div>
-  </form>
 </div>
+
+<style>
+    .delete-card {
+        border: 2px solid var(--accent-red) !important;
+        box-shadow: 0 0 20px rgba(255, 31, 31, 0.2);
+    }
+
+    .delete-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+    }
+
+    .warning-hex {
+        width: 40px;
+        height: 40px;
+        background: var(--accent-red);
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #fff;
+        font-size: 24px;
+    }
+
+    .target-name {
+        background: rgba(255, 31, 31, 0.1);
+        padding: 15px;
+        border-radius: 4px;
+        margin: 15px 0;
+        font-family: 'Orbitron', sans-serif;
+        color: #fff;
+        border-left: 4px solid var(--accent-red);
+    }
+
+    .sub-text {
+        font-size: 13px;
+        color: var(--text-dim);
+        font-style: italic;
+    }
+
+    .danger-line {
+        background: rgba(255, 31, 31, 0.2) !important;
+    }
+
+    .scan-line-danger {
+        position: absolute;
+        width: 60px;
+        height: 100%;
+        background: var(--accent-red);
+        box-shadow: 0 0 15px var(--accent-red);
+        animation: scan 2s infinite linear;
+    }
+
+    .btn-pulse {
+        animation: pulse-red 2s infinite;
+    }
+
+    @keyframes pulse-red {
+        0% { box-shadow: 0 0 0 0 rgba(255, 31, 31, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(255, 31, 31, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 31, 31, 0); }
+    }
+</style>
 {% endblock %}

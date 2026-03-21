@@ -4,21 +4,47 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}PokéDex Manager{% endblock %}</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
+<body class="pokedex-body">
+
+  <header class="pokedex-hardware-top">
+    <div class="main-sensor"></div>
+    <div class="status-lights">
+      <span class="light red"></span>
+      <span class="light yellow"></span>
+      <span class="light green"></span>
+    </div>
+  </header>
+
   <nav class="navbar">
-    <a href="/" class="navbar-brand">PokéDex Manager</a>
-    <div class="navbar-links">
-      <a href="/treinadores/">Treinadores</a>
-      <a href="/treinadores/novo/">Novo Treinador</a>
+    <div class="nav-container">
+      <a href="/" class="navbar-brand">
+        <span class="brand-dot"></span> POKÉDEX <small>v5.0</small>
+      </a>
+      <div class="navbar-links">
+        <a href="/treinadores/" class="nav-item">TREINADORES</a>
+        <a href="/treinadores/novo/" class="nav-item btn-action">NOVO REGISTRO</a>
+      </div>
     </div>
   </nav>
-  <main class="container">
-    {% block content %}{% endblock %}
-  </main>
+
+  <div class="screen-frame">
+    <main class="container">
+      {% block content %}{% endblock %}
+    </main>
+  </div>
+
   <footer class="footer">
-    <p>PokéDex Manager &copy; 2026 — Powered by <a href="https://pokeapi.co" target="_blank">PokeAPI</a></p>
+    <div class="footer-decoration"></div>
+    <p>SYSTEM STATUS: <span class="status-online">ONLINE</span></p>
+    <p>PokéDex Manager &copy; 2026 — <a href="https://pokeapi.co" target="_blank">PokeAPI DATABASE</a></p>
   </footer>
+
 </body>
 </html>
