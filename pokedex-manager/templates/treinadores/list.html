@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Treinadores{% endblock %}
+
+{% block content %}
+<h1>Treinadores cadastrados</h1>
+
+{% if treinadores %}
+  {% for treinador in treinadores %}
+  <div class="card">
+    <div class="card-info">
+      <h3>{{ treinador.nome }}</h3>
+      <p>{{ treinador.email }}</p>
+      <p>{{ treinador.bio }}</p>
+    </div>
+    <div style="margin-left: auto; display: flex; gap: 8px;">
+      <a href="/party/{{ treinador.id }}/" class="btn btn-primary">Ver Party</a>
+      <a href="/treinadores/{{ treinador.id }}/editar/" class="btn btn-success">Editar</a>
+      <a href="/treinadores/{{ treinador.id }}/deletar/" class="btn btn-danger">Deletar</a>
+    </div>
+  </div>
+  {% endfor %}
+{% else %}
+  <p>Nenhum treinador cadastrado ainda.</p>
+{% endif %}
+
+<a href="/treinadores/novo/" class="btn btn-success" style="margin-top: 10px;">+ Novo Treinador</a>
+{% endblock %}

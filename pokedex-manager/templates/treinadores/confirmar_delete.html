@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Deletar Treinador{% endblock %}
+
+{% block content %}
+<h1>Deletar {{ treinador.nome }}?</h1>
+
+<div style="background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 1px 4px rgba(0,0,0,0.1);">
+  <div class="alert alert-error">
+    Esta ação não pode ser desfeita.
+  </div>
+  <p>Tem certeza que deseja deletar o treinador <strong>{{ treinador.nome }}</strong> e toda a sua party?</p>
+  <form method="POST" style="margin-top: 16px;">
+    {% csrf_token %}
+    <div style="display: flex; gap: 10px;">
+      <button type="submit" class="btn btn-danger">Confirmar exclusão</button>
+      <a href="/treinadores/" class="btn btn-primary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

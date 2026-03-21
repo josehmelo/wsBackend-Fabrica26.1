@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PokéDex Manager{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="/" class="navbar-brand">🎮 PokéDex Manager</a>
+    <div class="navbar-links">
+      <a href="/treinadores/">Treinadores</a>
+      <a href="/treinadores/novo/">Novo Treinador</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <p>PokéDex Manager © 2026 — Powered by <a href="https://pokeapi.co" target="_blank">PokeAPI</a></p>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #cc0000;
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand {
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.navbar-links a:hover {
+  text-decoration: underline;
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* Cards */
+.card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.card img {
+  width: 80px;
+  height: 80px;
+}
+
+.card-info h3 {
+  font-size: 18px;
+  text-transform: capitalize;
+}
+
+.card-info p {
+  font-size: 13px;
+  color: #777;
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  background-color: #4a90d9;
+  color: #fff;
+  text-transform: capitalize;
+  margin-top: 6px;
+}
+
+/* Botões */
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-primary { background-color: #4a90d9; color: #fff; }
+.btn-success { background-color: #2ecc71; color: #fff; }
+.btn-danger  { background-color: #e74c3c; color: #fff; }
+
+.btn:hover { opacity: 0.85; }
+
+/* Formulário */
+form {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+form p { margin-bottom: 14px; }
+
+form input, form textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+form label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+/* Alertas */
+.alert {
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.alert-success { background-color: #d4edda; color: #155724; }
+.alert-error   { background-color: #f8d7da; color: #721c24; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 20px;
+  font-size: 13px;
+  color: #999;
+  margin-top: 40px;
+}
+
+.footer a { color: #4a90d9; }
+
+/* Títulos */
+h1 { margin-bottom: 20px; font-size: 24px; }
+h2 { margin-bottom: 16px; font-size: 20px; }

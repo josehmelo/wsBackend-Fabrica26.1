@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -7,6 +8,10 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.hashers import check_password
 from .models import Treinador
 from .serializers import TreinadorSerializer, RegistroSerializer
+from .forms import TreinadorForm
+
+
+# ─── API Views (JWT) ────────────────────────────────────────────
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -21,6 +26,7 @@ def registrar_treinador(request):
             'refresh': str(refresh),
         }, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -57,4 +63,43 @@ def perfil(request):
     serializer = TreinadorSerializer(treinador)
     return Response(serializer.data)
 
-# Create your views here.
+
+# ─── Template Views (HTML) ───────────────────────────────────────
+
+def listar_treinadores(request):
+    treinadores = Treinador.objects.all()
+    return render(request, 'treinadores/list.html', {'treinadores': treinadores})
+
+
+def criar_treinador(request):
+    if request.method == 'POST':
+        form = TreinadorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Treinador cadastrado com sucesso!')
+            return redirect('listar_treinadores')
+    else:
+        form = TreinadorForm()
+    return render(request, 'treinadores/form.html', {'form': form, 'titulo': 'Novo Treinador'})
+
+
+def editar_treinador(request, pk):
+    treinador = get_object_or_404(Treinador, pk=pk)
+    if request.method == 'POST':
+        form = TreinadorForm(request.POST, instance=treinador)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Treinador atualizado com sucesso!')
+            return redirect('listar_treinadores')
+    else:
+        form = TreinadorForm(instance=treinador)
+    return render(request, 'treinadores/form.html', {'form': form, 'titulo': 'Editar Treinador'})
+
+
+def deletar_treinador(request, pk):
+    treinador = get_object_or_404(Treinador, pk=pk)
+    if request.method == 'POST':
+        treinador.delete()
+        messages.success(request, 'Treinador removido com sucesso!')
+        return redirect('listar_treinadores')
+    return render(request, 'treinadores/confirmar_delete.html', {'treinador': treinador})

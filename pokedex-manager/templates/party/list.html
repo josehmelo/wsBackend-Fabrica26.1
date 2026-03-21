@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Party de {{ treinador.nome }}{% endblock %}
+
+{% block content %}
+<h1>Party de {{ treinador.nome }}</h1>
+
+{% if party %}
+  <div style="display: flex; flex-wrap: wrap; gap: 16px;">
+    {% for pokemon in party %}
+    <div class="card" style="flex-direction: column; align-items: center; width: 160px;">
+      <img src="{{ pokemon.pokemon_imagem_url }}" alt="{{ pokemon.pokemon_name }}">
+      <div class="card-info" style="text-align: center;">
+        <h3>{{ pokemon.pokemon_name }}</h3>
+        <span class="badge">{{ pokemon.pokemon_tipo }}</span>
+        <p style="margin-top: 6px; font-size: 12px;">{{ pokemon.anotacoes }}</p>
+      </div>
+      <a href="/party/{{ treinador.id }}/remover/{{ pokemon.id }}/" class="btn btn-danger" style="margin-top: 8px;">Remover</a>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>Nenhum pokémon na party ainda.</p>
+{% endif %}
+
+<form method="POST" action="/party/{{ treinador.id }}/adicionar/" style="margin-top: 24px;">
+  {% csrf_token %}
+  <h2>Adicionar Pokémon</h2>
+  <p>
+    <label>Nome ou ID do Pokémon</label>
+    <input type="text" name="pokemon" placeholder="ex: pikachu">
+  </p>
+  <p>
+    <label>Anotações</label>
+    <textarea name="anotacoes" rows="2"></textarea>
+  </p>
+  <button type="submit" class="btn btn-success">Adicionar</button>
+</form>
+{% endblock %}
