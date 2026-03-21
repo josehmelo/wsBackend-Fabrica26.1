@@ -1,28 +1,37 @@
 {% extends 'base.html' %}
-
 {% block title %}Treinadores{% endblock %}
 
 {% block content %}
-<h1>Treinadores cadastrados</h1>
+<div class="page-header">
+  <h1>Treinadores <span>#</span></h1>
+  <a href="/treinadores/novo/" class="btn btn-danger">+ Novo Treinador</a>
+</div>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+{% endif %}
 
 {% if treinadores %}
   {% for treinador in treinadores %}
-  <div class="card">
-    <div class="card-info">
+  <div class="card-treinador">
+    <div class="avatar">{{ treinador.nome|first|upper }}</div>
+    <div class="info">
       <h3>{{ treinador.nome }}</h3>
-      <p>{{ treinador.email }}</p>
-      <p>{{ treinador.bio }}</p>
+      <p>{{ treinador.email }}{% if treinador.bio %} &mdash; {{ treinador.bio }}{% endif %}</p>
     </div>
-    <div style="margin-left: auto; display: flex; gap: 8px;">
+    <div class="card-acoes">
       <a href="/party/{{ treinador.id }}/" class="btn btn-primary">Ver Party</a>
-      <a href="/treinadores/{{ treinador.id }}/editar/" class="btn btn-success">Editar</a>
+      <a href="/treinadores/{{ treinador.id }}/editar/" class="btn btn-outline">Editar</a>
       <a href="/treinadores/{{ treinador.id }}/deletar/" class="btn btn-danger">Deletar</a>
     </div>
   </div>
   {% endfor %}
 {% else %}
-  <p>Nenhum treinador cadastrado ainda.</p>
+  <div class="empty-state">
+    <p>Nenhum treinador cadastrado ainda.</p>
+    <a href="/treinadores/novo/" class="btn btn-success">Cadastrar primeiro treinador</a>
+  </div>
 {% endif %}
-
-<a href="/treinadores/novo/" class="btn btn-success" style="margin-top: 10px;">+ Novo Treinador</a>
 {% endblock %}

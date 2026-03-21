@@ -1,39 +1,49 @@
 {% extends 'base.html' %}
-
 {% block title %}Party de {{ treinador.nome }}{% endblock %}
 
 {% block content %}
-<h1>Party de {{ treinador.nome }}</h1>
-
-{% if party %}
-  <div style="display: flex; flex-wrap: wrap; gap: 16px;">
-    {% for pokemon in party %}
-    <div class="card" style="flex-direction: column; align-items: center; width: 160px;">
-      <img src="{{ pokemon.pokemon_imagem_url }}" alt="{{ pokemon.pokemon_name }}">
-      <div class="card-info" style="text-align: center;">
-        <h3>{{ pokemon.pokemon_name }}</h3>
-        <span class="badge">{{ pokemon.pokemon_tipo }}</span>
-        <p style="margin-top: 6px; font-size: 12px;">{{ pokemon.anotacoes }}</p>
-      </div>
-      <a href="/party/{{ treinador.id }}/remover/{{ pokemon.id }}/" class="btn btn-danger" style="margin-top: 8px;">Remover</a>
-    </div>
-    {% endfor %}
+<div class="page-header">
+  <div>
+    <h1>Party de <span>{{ treinador.nome }}</span></h1>
+    <p style="color:#8899aa; font-size:14px; margin-top:4px;">{{ party|length }}/6 pokémons</p>
   </div>
-{% else %}
-  <p>Nenhum pokémon na party ainda.</p>
+  <a href="/treinadores/" class="btn btn-outline">Voltar</a>
+</div>
+
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
 {% endif %}
 
-<form method="POST" action="/party/{{ treinador.id }}/adicionar/" style="margin-top: 24px;">
-  {% csrf_token %}
+{% if party %}
+<div class="pokemon-grid">
+  {% for pokemon in party %}
+  <div class="card-pokemon type-{{ pokemon.pokemon_tipo }}">
+    <p class="pokemon-id">#{{ pokemon.pokemon_id|stringformat:"03d" }}</p>
+    <img src="{{ pokemon.pokemon_imagem_url }}" alt="{{ pokemon.pokemon_name }}">
+    <h3>{{ pokemon.pokemon_name }}</h3>
+    <span class="badge">{{ pokemon.pokemon_tipo }}</span>
+    <p class="anotacao">{{ pokemon.anotacoes }}</p>
+    <a href="/party/{{ treinador.id }}/remover/{{ pokemon.id }}/" class="btn btn-danger" style="font-size:11px; padding:6px 14px;">Remover</a>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+  <p>Nenhum pokémon na party ainda. Adicione o primeiro abaixo!</p>
+</div>
+{% endif %}
+
+<div class="form-adicionar">
   <h2>Adicionar Pokémon</h2>
-  <p>
-    <label>Nome ou ID do Pokémon</label>
-    <input type="text" name="pokemon" placeholder="ex: pikachu">
-  </p>
-  <p>
-    <label>Anotações</label>
-    <textarea name="anotacoes" rows="2"></textarea>
-  </p>
-  <button type="submit" class="btn btn-success">Adicionar</button>
-</form>
+  <form method="POST" action="/party/{{ treinador.id }}/adicionar/">
+    {% csrf_token %}
+    <div class="form-row">
+      <input type="text" name="pokemon" placeholder="Nome ou ID (ex: pikachu, charizard, 25)">
+      <button type="submit" class="btn btn-success">Buscar e Adicionar</button>
+    </div>
+    <textarea name="anotacoes" rows="2" placeholder="Anotações sobre este pokémon (opcional)"></textarea>
+  </form>
+</div>
 {% endblock %}
